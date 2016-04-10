@@ -3,7 +3,298 @@ using System;
 using System.Threading; // delegate void TimerCallback(Object o); gibi....
 using System.Collections;
 using System.IO;
+using System.Text;
 
+namespace CSD
+{
+    class App
+    {
+        public static void Main()
+        {
+            Number a = new Number(3), b = new Number(7), c = new Number(5);
+            if (b - a > c)
+                Console.WriteLine("evet");
+            else
+                Console.WriteLine("hayır");
+        }
+    }
+
+    class Number
+    {
+        private double m_val;
+
+        public Number()
+        { }
+
+        public Number(double val)
+        {
+            m_val = val;
+        }
+
+        public override string ToString()
+        {
+            return m_val.ToString();
+        }
+
+        public static Number operator +(Number x, Number y)
+        {
+            Number result = new Number();
+            result.m_val = x.m_val + y.m_val;
+            return result;
+        }
+
+        public static Number operator -(Number x, Number y)
+        {
+            Number result = new Number();
+            result.m_val = x.m_val - y.m_val;
+            return result;
+        }
+
+        public static Number operator *(Number x, Number y)
+        {
+            Number result = new Number();
+            result.m_val = x.m_val * y.m_val;
+            return result;
+        }
+
+        public static Number operator /(Number x, Number y)
+        {
+            Number result = new Number();
+            result.m_val = x.m_val / y.m_val;
+            return result;
+        }
+
+        public static bool operator >(Number x, Number y)
+        {
+            return x.m_val > y.m_val;
+        }
+
+        public static bool operator <(Number x, Number y)
+        {
+            return x.m_val < y.m_val;
+        }
+
+        public static bool operator >=(Number x, Number y)
+        {
+            return x.m_val >= y.m_val;
+        }
+
+        public static bool operator <=(Number x, Number y)
+        {
+            return x.m_val <= y.m_val;
+        }
+    }
+}
+
+/*
+namespace CSD
+{
+    class App
+    {
+        public static void Main()
+        {
+            Complex x = new Complex(3, 2);
+            Complex y = new Complex(2, 5);
+            Complex z = new Complex(7, 1);
+            Complex result;
+
+            result = x + y - z;     // result = x + y
+            Console.WriteLine(result);
+            Console.WriteLine(x * y * z);
+        }
+    }
+
+    class Complex
+    {
+        private double m_real;
+        private double m_imag;
+
+        public Complex()
+        {
+        }
+
+        public Complex(double real, double imag)
+        {
+            m_real = real;
+            m_imag = imag;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0}+{1}i", m_real, m_imag);
+        }
+
+        public static Complex Add(Complex x, Complex y)
+        {
+            Complex result = new Complex();
+
+            result.m_real = x.m_real + y.m_real;
+            result.m_imag = x.m_imag + y.m_imag;
+
+            return result;
+        }
+
+        public static Complex operator+ (Complex x, Complex y)      // public static olması gerekiyor!
+        {
+            Complex result = new Complex();
+
+            result.m_real = x.m_real + y.m_real;
+            result.m_imag = x.m_imag + y.m_imag;
+
+            return result;
+        }
+
+        public static Complex operator- (Complex x, Complex y)      // public static olması gerekiyor!
+        {
+            Complex result = new Complex();
+
+            result.m_real = x.m_real - y.m_real;
+            result.m_imag = x.m_imag - y.m_imag;
+
+            return result;
+        }
+
+        public static Complex operator* (Complex x, Complex y)      // public static olması gerekiyor!
+        {
+            Complex result = new Complex();
+
+            result.m_real = x.m_real * y.m_real - x.m_imag * y.m_imag;
+            result.m_imag = x.m_real * y.m_imag + x.m_imag * y.m_real;
+
+            return result;
+        }
+    }
+}
+
+/*
+namespace CSD
+{
+    class App
+    {
+        public static void Main()
+        {
+            Sample s = new Sample();
+            s.Foo();
+            s.Bar();
+        }
+    }
+
+    partial class Sample
+    {
+        private int m_a;
+        public void Foo()
+        {
+        }
+    }
+
+    partial class Sample
+    {
+        public void Bar()
+        {
+        }
+    }
+}
+
+/*
+namespace CSD
+{
+    class App
+    {
+        public static void Main()
+        {
+            FileStream fs = null;
+            StreamWriter sw = null;
+
+            try
+            {
+                fs = new FileStream("test.text", FileMode.Create, FileAccess.Write);
+                sw = new StreamWriter(fs, Encoding.UTF8);
+
+                sw.WriteLine("Bu bir denemedir. Yumaşak Ğ!");
+
+                for (int i = 0; i < 10; ++i)
+                {
+                    sw.WriteLine(i);
+
+                }
+                Console.WriteLine();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                if (sw != null)
+                    sw.Close();
+            }
+        }
+    }
+}
+
+/*
+namespace CSD
+{
+    class App
+    {
+        public static void Main()
+        {
+            FileStream fs=null;
+            BinaryReader bw = null;
+
+            try
+            {
+                fs = new FileStream("test.dat", FileMode.Open, FileAccess.Read);
+                bw = new BinaryReader(fs);
+                for (int i = 0; i < 100; i++)
+                    Console.Write( bw.ReadInt32() + " ");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                if (bw != null)
+                    bw.Close();
+            }
+
+        }
+    }
+}
+
+/*
+namespace CSD
+{
+    class App
+    {
+        public static void Main()
+        {
+            FileStream fs;
+            BinaryWriter bw = null;
+
+            try
+            {
+                fs = new FileStream("test.dat", FileMode.Create, FileAccess.Write);
+                bw = new BinaryWriter(fs);
+                for (int i = 0; i < 100; i++)
+                    bw.Write(i);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                if (bw != null)
+                    bw.Close();
+            }
+
+        }
+    }
+}
+
+/*
 namespace CSD
 {
     class App
