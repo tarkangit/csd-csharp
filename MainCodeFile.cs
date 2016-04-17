@@ -10,10 +10,75 @@ namespace CSD
     {
         public static void Main()
         {
+            Sample s;
+            Console.WriteLine("one");
+            s = new Sample();
+            Console.WriteLine(Sample.A);
+        }
+    }
+
+    class Sample 
+    {
+        private static int m_a;
+
+        public Sample()
+        {
+            Console.WriteLine("instance constructor");
+        }
+
+        static Sample()
+        {
+            Console.WriteLine("static constructor");
+            m_a = 100;
+        }
+
+        public static int A
+        {
+            get { return Sample.m_a; }
+            set { Sample.m_a = value; }
+        }
+    }
+}
+
+/*
+namespace CSD
+{
+    class App
+    {
+        public static void Main()
+        {
+            Sample s = new Sample();
+            Sample k = new Sample();
+        }
+    }
+
+    class Sample
+    {
+        private int m_a;
+
+        public Sample()
+        {
+            m_a = 10;
+            Console.WriteLine("Constructor");
+        }
+
+        ~Sample()
+        {
+            Console.WriteLine("Destructor");
+        }
+    }
+}
+
+/*
+namespace CSD
+{
+    class App
+    {
+        public static void Main()
+        {
             Console.WriteLine(Environment.CurrentDirectory);
             Environment.CurrentDirectory = "c:/windows";
             Console.WriteLine(Environment.CurrentDirectory);
-
             Console.WriteLine(File.Exists("c:/windows/notepad.exe") ? "Var" : "Yok");
         }
     }
