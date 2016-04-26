@@ -4,7 +4,96 @@ using System.Threading; // delegate void TimerCallback(Object o); gibi....
 using System.Collections;
 using System.IO;
 using System.Text;
+using System.Collections.Generic;   // For template collection classes
 
+namespace CSD
+{
+    class App
+    {
+        public static void Main()
+        {
+            Sample<string, int> s;
+        }
+    }
+
+    class Sample<T, K>
+        where T : class     // Primary constraint implies T is a reference type
+        where K : struct, IDisposable, IComparable  // Secondary constraints are interfaces
+                            // Note third constraint is declaration of default constructor using new() word
+    {
+        private T m_a;
+        private K m_b;
+
+        public Sample()
+        {
+            m_a = null;
+        }
+    }
+}
+
+
+/*
+namespace CSD
+{
+    class App
+    {
+        public static void Main()
+        {
+            int[] a = { 1, 4, 3, 56 };
+            double[] d = { 3.14, 47.8 };
+
+            int imax;
+            double dmax;
+
+            imax = Sample.GetMax<int>(a);
+            dmax = Sample.GetMax<double>(d);
+
+            imax = Sample.GetMax(a);    // bu da geçerli
+            dmax = Sample.GetMax(d);
+
+            Console.WriteLine(imax);
+            Console.WriteLine(dmax);
+        }
+    }
+
+    class Sample
+    {
+        public static T GetMax<T>(T[] a) where T : IComparable
+        {
+            T max = a[0];
+            for (int i = 1; i < a.Length; ++i)
+                if (max.CompareTo(a[i]) < 0)
+                    max = a[i];
+            return max;
+        }
+    }
+}
+
+/*
+namespace CSD
+{
+    class App
+    {
+        public static void Main()
+        {
+            Sample<int> s = new Sample<int>();
+        }
+    }
+
+    interface IX<T>
+    {
+        void Foo(T a);
+    }
+
+    class Sample<T> : IX<T>
+    {
+        public void Foo(T a)
+        {
+        }
+    }
+}
+
+/*
 namespace CSD
 {
     class App
