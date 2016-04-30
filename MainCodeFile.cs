@@ -12,6 +12,89 @@ namespace CSD
     {
         public static void Main()
         {
+            foreach (string str in Enum.GetNames(typeof(Fruit)))
+                Console.WriteLine(str);
+        }
+
+        enum Fruit
+        {
+            Apple, Banana, Cherry, Apricot
+        }
+    }
+}
+
+/*
+namespace CSD
+{
+    class App
+    {
+        public static void Main()
+        {
+            int a = 20;
+            int b;
+
+            Sample.Foo(ref a);
+
+            Sample.Bar(out b);
+
+            string str = "Ankara";
+            Sample.Foo(ref str);
+            Console.WriteLine(str);
+
+            // Variable arguments using params keyword
+            Sample.Foo(1, 2, 3, 4, 5, 6, 7, 8, 9);
+            Sample.Foo(new int[] { 1, 2, 3, 4, 5 });
+
+            Type t;
+
+            t = typeof(Sample);
+            Console.WriteLine(t);
+
+            t = typeof(Color);
+            Console.WriteLine(t);
+        }
+    }
+
+    class Sample
+    {
+        public static void Foo(ref int x)
+        {
+            Console.WriteLine(x);
+        }
+
+        public static void Bar(out int x)
+        {
+            x = 10;
+            Console.WriteLine(x);
+        }
+
+        public static void Foo(ref string s)
+        {
+            Console.WriteLine(s);
+            s = "Eskişehir";
+        }
+
+        public static void Foo(params int[] a)
+        {
+            foreach (int x in a)
+                Console.WriteLine(x);
+        }
+    }
+
+    enum Color
+    {
+        Red, Green
+    }
+}
+
+
+/*
+namespace CSD
+{
+    class App
+    {
+        public static void Main()
+        {
             Sample<string, int> s;
         }
     }
